@@ -134,7 +134,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         // as we want to read value from it
         val db = this.readableDatabase
         val selectQuery = "SELECT  * FROM $APP_TABLE WHERE $APPS_PACKAGE_NAME_COL = ?"
-      db.rawQuery(selectQuery, arrayOf(packagename)).use {
+        db.rawQuery(selectQuery, arrayOf(packagename)).use {
           if (it.moveToFirst()) {
 
               return true

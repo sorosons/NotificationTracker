@@ -43,12 +43,6 @@ class MyNotificationAdapter(private val mList: List<AppListDataModel>) :
         holder.textView.text = ItemsViewModel.myAppName
 
 
-
-
-
-
-
-
     }
 
     // return the number of the items in the list
@@ -62,9 +56,5 @@ class MyNotificationAdapter(private val mList: List<AppListDataModel>) :
         val textView: TextView = itemView.findViewById(R.id.appName)
 
     }
-
-
-
-
 
 }

@@ -35,10 +35,6 @@ class AppListFragment : Fragment() {
     ): View? {
        var view=inflater.inflate(R.layout.app_list_fragment, container, false)
 
-
-
-
-
         viewModel = ViewModelProvider(this).get(AppListViewModel::class.java)
         viewModel.getApplist(context)
         viewModel.audioRecordsLiveData.observe(viewLifecycleOwner, Observer {

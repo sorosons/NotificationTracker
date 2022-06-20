@@ -5,11 +5,14 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.2046875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.296195652173913" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/app_list_fragment.xml" value="0.24954128440366974" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1890625" />
         <entry key="app/src/main/res/layout/mylayout.xml" value="0.296195652173913" />
         <entry key="app/src/main/res/layout/notification_fragment.xml" value="0.22760416666666666" />
         <entry key="app/src/main/res/layout/row_applist_info.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/layout/row_notification_info.xml" value="0.22760416666666666" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.23229166666666667" />
         <entry key="app/src/main/res/menu/mymenu.xml" value="0.37604166666666666" />
       </map>
     </option>
