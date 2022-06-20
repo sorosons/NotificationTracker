@@ -1,19 +1,22 @@
 package com.sgmy.notificationtrackerkt
 
+import android.R
 import android.app.Notification
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
-import android.os.Debug
 import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-
+import androidx.core.content.ContextCompat
 import com.example.notification_ap.DBHelper
 import com.sgmy.notificationtrackerkt.model.NotiDataModel
 import java.io.ByteArrayOutputStream
+
 
 class NotificationListener: NotificationListenerService() {
     override fun onBind(intent: Intent): IBinder? {
@@ -41,6 +44,18 @@ class NotificationListener: NotificationListenerService() {
             val id1 = extras.getInt(Notification.EXTRA_SMALL_ICON)
             val icon = sbn.notification.largeIcon
             //Convert btimap to ByteArrray
+            val iconX =
+                this.packageManager.getApplicationIcon(pack)
+
+
+            val iconz: Drawable?
+            iconz = try {
+                this.getPackageManager().getApplicationIcon(packageName)
+            } catch (e: PackageManager.NameNotFoundException) {
+                e.printStackTrace()
+                // Get a default icon
+                ContextCompat.getDrawable(this, R.drawable.ic_dialog_info)
+            }
 
             val stream = ByteArrayOutputStream()
             icon?.compress(Bitmap.CompressFormat.PNG, 100, stream)
@@ -50,11 +65,11 @@ class NotificationListener: NotificationListenerService() {
             Log.i("Ticker", ticker)
             if (title != null) {
                 Log.i("Title",title)
-            };
+            }
             Log.i("Text", text)
 
-            val data = NotiDataModel(pack,title,text,byteArray)
-            db.addNotificaiton(data);
+            val data = NotiDataModel(pack,title,text,iconX)
+            db.addNotificaiton(data)
         }
         else{
             Log.i("packgage delete from db",pack)

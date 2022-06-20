@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -14,6 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import com.sgmy.notificationtrackerkt.R
 import com.sgmy.notificationtrackerkt.databinding.ActivityMain2Binding
 import com.sgmy.notificationtrackerkt.ui.fragment.AppListFragment
+import com.sgmy.notificationtrackerkt.ui.fragment.NotificationFragment
 
 class MainActivity2 : AppCompatActivity() {
 
@@ -21,6 +23,12 @@ class MainActivity2 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frlayout, AppListFragment())
+            .addToBackStack("applistfragment")
+            .commit()
 
 
         binding = ActivityMain2Binding.inflate(layoutInflater)
@@ -49,11 +57,11 @@ class MainActivity2 : AppCompatActivity() {
         navView.setOnItemSelectedListener() {
             when (it.itemId) {
                 R.id.navigation_home -> {
-                    Log.i("XX","  NAV DASHBORD")
+                    loadFragment(AppListFragment())
 
                 }
                 R.id.navigation_dashboard -> {
-                    Log.i("XX","YY NAV DASHBORD")
+                    loadFragment(NotificationFragment())
 
                 }
 
@@ -61,28 +69,19 @@ class MainActivity2 : AppCompatActivity() {
             true
         }
 
-          val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.navigation_home -> {
-                    Log.i("XX","YY NAV DASHBORD")
-
-                }
-                R.id.navigation_dashboard -> {
-
-                    Log.i("XX","NAV DASHBORD")
 
 
-                }
-            }
-            true
-        }
-     //   bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.frlayout, AppListFragment())
-            .addToBackStack("applistfragment")
-            .commit()
 
+
+
+
+    }
+  private  fun loadFragment(fragment: Fragment){
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container,fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
 

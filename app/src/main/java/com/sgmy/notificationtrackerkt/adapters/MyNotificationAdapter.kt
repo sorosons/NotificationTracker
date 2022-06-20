@@ -1,17 +1,20 @@
 package com.sgmy.notificationtrackerkt.adapters
 
-import android.util.Log
+import android.R.attr.bitmap
+import android.graphics.Bitmap
+import android.graphics.Bitmap.CompressFormat
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notification_ap.DBHelper
 import com.sgmy.notificationtrackerkt.R
-import com.sgmy.notificationtrackerkt.model.AppListDataModel
+import com.sgmy.notificationtrackerkt.model.NotiDataModel
+import java.io.ByteArrayOutputStream
 
 
-class MyNotificationAdapter(private val mList: List<AppListDataModel>) :
+class MyNotificationAdapter(private val mList: List<NotiDataModel>) :
     RecyclerView.Adapter<MyNotificationAdapter.ViewHolder>() {
 
 
@@ -36,11 +39,17 @@ class MyNotificationAdapter(private val mList: List<AppListDataModel>) :
 
         val ItemsViewModel = mList[position]
 
-        // sets the image to the imageview from our itemHolder class
-        holder.imageView.setImageDrawable(ItemsViewModel.appIcon)
+        val stream=ByteArrayOutputStream()
+
+
+
+
+
+
+        holder.imageView.setImageDrawable(ItemsViewModel.bigIcon)
 
         // sets the text to the textview from our itemHolder class
-        holder.textView.text = ItemsViewModel.myAppName
+        holder.textView.text = ItemsViewModel.text
 
 
     }
