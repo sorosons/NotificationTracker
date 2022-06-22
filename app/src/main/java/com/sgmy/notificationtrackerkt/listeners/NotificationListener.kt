@@ -1,19 +1,15 @@
-package com.sgmy.notificationtrackerkt
+package com.sgmy.notificationtrackerkt.listeners
 
-import android.R
 import android.app.Notification
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import androidx.core.content.ContextCompat
-import com.example.notification_ap.DBHelper
+import com.sgmy.notificationtrackerkt.helpers.DBHelper
 import com.sgmy.notificationtrackerkt.model.NotiDataModel
 import java.io.ByteArrayOutputStream
 

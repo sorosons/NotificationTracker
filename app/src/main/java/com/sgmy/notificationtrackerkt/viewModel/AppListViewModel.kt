@@ -1,17 +1,13 @@
 package com.sgmy.notificationtrackerkt.viewModel
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import android.content.pm.ResolveInfo
 
 import android.content.Intent
 import android.content.pm.PackageInfo
-import android.graphics.drawable.Drawable
 import android.content.pm.ApplicationInfo
-import android.service.notification.NotificationListenerService
 import androidx.lifecycle.MutableLiveData
-import com.example.notification_ap.DBHelper
+import com.sgmy.notificationtrackerkt.helpers.DBHelper
 import com.sgmy.notificationtrackerkt.model.AppListDataModel
 
 
@@ -24,7 +20,7 @@ class AppListViewModel() : ViewModel() {
 
     var audioRecordsLiveData: MutableLiveData<ArrayList<AppListDataModel>> = MutableLiveData()
 
-    lateinit var db :DBHelper
+    lateinit var db : DBHelper
 
 
 

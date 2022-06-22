@@ -1,9 +1,8 @@
-package com.example.notification_ap
+package com.sgmy.notificationtrackerkt.helpers
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.sgmy.notificationtrackerkt.model.AppListDataModel
@@ -119,10 +118,10 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val cursor= db.rawQuery("SELECT * FROM " + NOTI_TABLE_NAME, null)
         cursor!!.moveToFirst()
         while(cursor.moveToNext()){
-            var packname=cursor.getString(cursor.getColumnIndex(DBHelper.PACK_COl))
-            var title=cursor.getString(cursor.getColumnIndex(DBHelper.TITLE_COL))
-            var text=cursor.getString(cursor.getColumnIndex(DBHelper.TEXT_COl))
-            var icon=cursor.getBlob(cursor.getColumnIndex(DBHelper.BIGICON_COL))
+            var packname=cursor.getString(cursor.getColumnIndex(PACK_COl))
+            var title=cursor.getString(cursor.getColumnIndex(TITLE_COL))
+            var text=cursor.getString(cursor.getColumnIndex(TEXT_COl))
+            var icon=cursor.getBlob(cursor.getColumnIndex(BIGICON_COL))
             notList?.add(NotiDataModel(packname,title,text,null))
 
         }

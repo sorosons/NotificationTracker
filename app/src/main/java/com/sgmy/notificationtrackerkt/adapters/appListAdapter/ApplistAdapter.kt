@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notification_ap.DBHelper
+import com.sgmy.notificationtrackerkt.helpers.DBHelper
 import com.sgmy.notificationtrackerkt.R
 import com.sgmy.notificationtrackerkt.model.AppListDataModel
 import com.sgmy.notificationtrackerkt.ui.AppListItemClickListener
