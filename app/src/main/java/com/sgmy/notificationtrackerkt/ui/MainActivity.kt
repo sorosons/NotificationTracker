@@ -1,88 +1,76 @@
 package com.sgmy.notificationtrackerkt.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
-import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.navigation.NavigationView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.ads.MobileAds
 import com.sgmy.notificationtrackerkt.R
 import com.sgmy.notificationtrackerkt.databinding.ActivityMain2Binding
 import com.sgmy.notificationtrackerkt.ui.fragment.AppListFragment
 import com.sgmy.notificationtrackerkt.ui.fragment.NotificationFragment
+import com.sgmy.notificationtrackerkt.viewModel.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMain2Binding
 
+    var navView: BottomNavigationView? =null
+
+    private lateinit var viewModel: MainActivityViewModel
+
+    private var interstitialIsLoaded: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.frlayout, AppListFragment())
-            .addToBackStack("applistfragment")
-            .commit()
-
-
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main2)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_dashboard
+        MobileAds.initialize(this) {}
+
+        viewModel.loadInterstitialAd()
+
+        viewModel.onNativeAdsIsLoad.observe(this, Observer {
+            interstitialIsLoaded = it
+        })
+
+        binding.navView.setOnItemSelectedListener {
+            handleBottomNavigation(
+                it.itemId
             )
-        )
+        }
+        binding.navView.selectedItemId = R.id.navigation_home
+    }
 
-
-
-
-
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-
-
-
-        navView.setOnItemSelectedListener() {
-            when (it.itemId) {
-                R.id.navigation_home -> {
-                    loadFragment(AppListFragment())
-
-                }
-                R.id.navigation_dashboard -> {
-                    loadFragment(NotificationFragment())
-
-                }
-
-            }
+    private fun handleBottomNavigation(
+        menuItemId: Int
+    ): Boolean = when(menuItemId) {
+        R.id.navigation_home -> {
+            if(interstitialIsLoaded)
+                viewModel.showAd(activity = this)
+            swapFragments(AppListFragment())
             true
         }
-
-
-
-
-
-
-
-
+        R.id.navigation_dashboard -> {
+            if(interstitialIsLoaded)
+                viewModel.showAd(activity = this)
+            swapFragments(NotificationFragment())
+            true
+        }
+        else -> false
     }
-  private  fun loadFragment(fragment: Fragment){
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container,fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+
+    private fun swapFragments(fragment: Fragment) {
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .commit()
     }
+
 
 
 }

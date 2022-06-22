@@ -1,5 +1,6 @@
 package com.sgmy.notificationtrackerkt.adapters.appListAdapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.sgmy.notificationtrackerkt.ui.AppListItemClickListener
 
 
 class ApplistAdapter(
+    private val context: Context,
     private val mList: List<AppListDataModel>,
     private val appListClickListener: AppListItemClickListener
 ) :

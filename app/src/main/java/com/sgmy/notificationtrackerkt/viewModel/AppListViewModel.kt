@@ -1,28 +1,37 @@
 package com.sgmy.notificationtrackerkt.viewModel
 
+import android.app.Activity
+import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModel
 
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.ApplicationInfo
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdOptions
+import com.sgmy.notificationtrackerkt.R
 import com.sgmy.notificationtrackerkt.helpers.DBHelper
 import com.sgmy.notificationtrackerkt.model.AppListDataModel
 
 
-class AppListViewModel() : ViewModel() {
+class AppListViewModel(
+    application: Application
+) : AndroidViewModel(application) {
 
 
-
+    private val context = getApplication<Application>().applicationContext
 
     var apps: ArrayList<AppListDataModel>? =ArrayList<AppListDataModel>()
 
     var audioRecordsLiveData: MutableLiveData<ArrayList<AppListDataModel>> = MutableLiveData()
 
     lateinit var db : DBHelper
-
-
 
     fun getApplist(context: Context?) {
 
@@ -68,5 +77,12 @@ class AppListViewModel() : ViewModel() {
             db.deleteCourse(item.packageName)
         }
     }
+
+
+
+
+
+
+
 
 }
