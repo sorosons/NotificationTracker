@@ -1,4 +1,4 @@
-package com.sgmy.notificationtrackerkt.listeners
+package com.sgmy.notificationtrackerkt.helpers
 
 import android.app.Notification
 import android.content.Intent
@@ -9,7 +9,6 @@ import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import com.sgmy.notificationtrackerkt.helpers.DBHelper
 import com.sgmy.notificationtrackerkt.model.NotiDataModel
 import java.io.ByteArrayOutputStream
 
