@@ -48,14 +48,7 @@ class NotificationListener: NotificationListenerService() {
                 this.packageManager.getApplicationIcon(pack)
 
 
-            val iconz: Drawable?
-            iconz = try {
-                this.getPackageManager().getApplicationIcon(packageName)
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-                // Get a default icon
-                ContextCompat.getDrawable(this, R.drawable.ic_dialog_info)
-            }
+
 
             val stream = ByteArrayOutputStream()
             icon?.compress(Bitmap.CompressFormat.PNG, 100, stream)

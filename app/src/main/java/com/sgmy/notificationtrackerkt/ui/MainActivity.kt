@@ -17,7 +17,7 @@ import com.sgmy.notificationtrackerkt.databinding.ActivityMain2Binding
 import com.sgmy.notificationtrackerkt.ui.fragment.AppListFragment
 import com.sgmy.notificationtrackerkt.ui.fragment.NotificationFragment
 
-class MainActivity2 : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMain2Binding
 

@@ -1,66 +1,61 @@
 package com.sgmy.notificationtrackerkt.ui.fragment
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.sgmy.notificationtrackerkt.R
-import com.sgmy.notificationtrackerkt.adapters.MyCustomAdapter
+import com.sgmy.notificationtrackerkt.adapters.appListAdapter.ApplistAdapter
+import com.sgmy.notificationtrackerkt.databinding.AppListFragmentBinding
+import com.sgmy.notificationtrackerkt.model.AppListDataModel
+import com.sgmy.notificationtrackerkt.ui.AppListItemClickListener
 import com.sgmy.notificationtrackerkt.viewModel.AppListViewModel
 
-class AppListFragment : Fragment() {
+
+class AppListFragment : Fragment(), AppListItemClickListener {
 
     companion object {
         fun newInstance() = AppListFragment()
     }
 
-    init {
+    /**
+     * View Binding entegrasyon
+     */
+    private var _binding: AppListFragmentBinding? = null
+    private val binding get() = _binding!!
 
-    }
     private lateinit var viewModel: AppListViewModel
 
-    lateinit var adapterim:MyCustomAdapter
-
+    private lateinit var adapterim: ApplistAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       var view=inflater.inflate(R.layout.app_list_fragment, container, false)
+        _binding = AppListFragmentBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
         viewModel = ViewModelProvider(this).get(AppListViewModel::class.java)
         viewModel.getApplist(context)
         viewModel.audioRecordsLiveData.observe(viewLifecycleOwner, Observer {
-            val recyclerView = view.findViewById<RecyclerView>(R.id.list_recycler_view)
+            val recyclerView = binding.listRecyclerView
             recyclerView.layoutManager = LinearLayoutManager(context)
-            adapterim = MyCustomAdapter(it)
+            adapterim = ApplistAdapter(requireContext(), it, this)
             recyclerView?.adapter = adapterim
-            Log.i("ALO:", it.get(0).myAppName.toString())
         })
 
-        var switch = view.findViewById<Switch>(R.id.switchall)
+       binding.switchall.setOnCheckedChangeListener { _, isChecked ->
 
-
-
-
-        switch.setOnCheckedChangeListener { _, isChecked ->
-
-            if(isChecked)
-            {
+            if (isChecked) {
                 viewModel.selectAllApps()
-            }
-            else{
+            } else {
                 viewModel.unSelectAllApps()
             }
 
-            adapterim.allSwitch=isChecked
+            adapterim.allSwitch = isChecked
             adapterim.notifyDataSetChanged()
 
         }
@@ -68,11 +63,15 @@ class AppListFragment : Fragment() {
 
 
 
-        return view
+        return root
+    }
+
+    override fun onAppsItemClickListener(appListDataModel: AppListDataModel) {
+        /**
+         * daha sonra dolduralacak
+         */
     }
 
 
 
-
-
-}
+    }
