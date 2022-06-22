@@ -1,10 +1,11 @@
 package com.sgmy.notificationtrackerkt.adapters.appListAdapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.Switch
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notification_ap.DBHelper
 import com.sgmy.notificationtrackerkt.R
@@ -13,7 +14,6 @@ import com.sgmy.notificationtrackerkt.ui.AppListItemClickListener
 
 
 class ApplistAdapter(
-    private val context: Context,
     private val mList: List<AppListDataModel>,
     private val appListClickListener: AppListItemClickListener
 ) :
