@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.sgmy.notificationtrackerkt"
         minSdk 21
-        targetSdk 32
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -32,6 +32,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+
 
 }
 
@@ -59,5 +60,12 @@ dependencies {
 
     //for admob
     implementation 'com.google.android.gms:play-services-ads:21.0.0'
+
+
+    implementation 'com.github.gabriel-TheCode:AestheticDialogs:1.3.6'
+
+    implementation 'com.github.chnouman:AwesomeDialog:1.0.5'
+
+
 
 }

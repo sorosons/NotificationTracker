@@ -1,13 +1,19 @@
 package com.sgmy.notificationtrackerkt.ui.fragment
 
+
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SnapHelper
+import com.example.awesomedialog.*
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -16,6 +22,10 @@ import com.sgmy.notificationtrackerkt.databinding.AppListFragmentBinding
 import com.sgmy.notificationtrackerkt.model.AppListDataModel
 import com.sgmy.notificationtrackerkt.ui.AppListItemClickListener
 import com.sgmy.notificationtrackerkt.viewModel.AppListViewModel
+import com.sgmy.notificationtrackerkt.ui.MainActivity
+import com.thecode.aestheticdialogs.*
+import com.thecode.aestheticdialogs.R
+import kotlin.system.exitProcess
 
 
 class AppListFragment : Fragment(), AppListItemClickListener {
@@ -38,6 +48,8 @@ class AppListFragment : Fragment(), AppListItemClickListener {
     lateinit var mAdView: AdView
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,14 +57,11 @@ class AppListFragment : Fragment(), AppListItemClickListener {
         _binding = AppListFragmentBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
+
+
         viewModel = ViewModelProvider(this).get(AppListViewModel::class.java)
         viewModel.getApplist(context)
-
-        MobileAds.initialize(requireContext()) {}
-
-        //set Banner Ads
-        setBannerAds()
-
 
 
         viewModel.audioRecordsLiveData.observe(viewLifecycleOwner, Observer {
@@ -62,18 +71,25 @@ class AppListFragment : Fragment(), AppListItemClickListener {
             recyclerView?.adapter = adapterim
         })
 
-        binding.switchall.setOnCheckedChangeListener { _, isChecked ->
+            MobileAds.initialize(requireContext()) {}
 
-            if (isChecked) {
-                viewModel.selectAllApps()
-            } else {
-                viewModel.unSelectAllApps()
+            //set Banner Ads
+            setBannerAds()
+
+
+
+            binding.switchall.setOnCheckedChangeListener { _, isChecked ->
+
+                if (isChecked) {
+                    viewModel.selectAllApps()
+                } else {
+                    viewModel.unSelectAllApps()
+                }
+
+                adapterim.allSwitch = isChecked
+                adapterim.notifyDataSetChanged()
+
             }
-
-            adapterim.allSwitch = isChecked
-            adapterim.notifyDataSetChanged()
-
-        }
 
 
 
@@ -91,5 +107,9 @@ class AppListFragment : Fragment(), AppListItemClickListener {
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
     }
+
+
+
+
 
 }

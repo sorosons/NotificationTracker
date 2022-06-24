@@ -8,8 +8,11 @@ import androidx.lifecycle.ViewModel
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.ApplicationInfo
+import android.view.Gravity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.awesomedialog.*
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
@@ -18,6 +21,9 @@ import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.sgmy.notificationtrackerkt.R
 import com.sgmy.notificationtrackerkt.helpers.DBHelper
 import com.sgmy.notificationtrackerkt.model.AppListDataModel
+import com.sgmy.notificationtrackerkt.ui.MainActivity
+import com.thecode.aestheticdialogs.*
+import kotlin.system.exitProcess
 
 
 class AppListViewModel(
@@ -25,11 +31,14 @@ class AppListViewModel(
 ) : AndroidViewModel(application) {
 
 
+
     private val context = getApplication<Application>().applicationContext
+
 
     var apps: ArrayList<AppListDataModel>? =ArrayList<AppListDataModel>()
 
     var audioRecordsLiveData: MutableLiveData<ArrayList<AppListDataModel>> = MutableLiveData()
+    val isHaveNotificationPermission= MutableLiveData<Boolean>()
 
     lateinit var db : DBHelper
 
@@ -77,6 +86,10 @@ class AppListViewModel(
             db.deleteCourse(item.packageName)
         }
     }
+
+
+
+
 
 
 
