@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.awesomedialog.*
 
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
@@ -21,6 +22,7 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.sgmy.notificationtrackerkt.R
 import com.sgmy.notificationtrackerkt.helpers.NotificationListener
 
 
@@ -96,33 +98,20 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun showDialogAwesome(activity: Activity) {
-   //     AwesomeDialog.build(activity)
-   //         .title("İzin gerekli")
-   //         .body("Uygulamanın çalışması için izin gereklasadaşdşa")
-   //         .icon(com.thecode.aestheticdialogs.R.drawable.ic_cancel)
-   //         .onPositive("İzin Ver") {
-   //             openSettings(activity)
-   //         }
-   //         .onNegative("Vazgeç") {
-   //             exitProcess(-1)
-   //         }
+
+        AwesomeDialog.build(activity)
+            .title("İzin Gerekli")
+            .body("Lütfen izinlsflsşlfmsşlfd")
+            .onPositive("İzinver") {
+                Log.d("TAG", "positive ")
+                openSettings(activity)
+            }
+            .onNegative("Vazgeç") {
+                Log.d("TAG", "negative ")
+            }
+
     }
 
-    fun showDialogAesthetic(activity: Activity) {
-     //  AestheticDialog.Builder(activity, DialogStyle.FLAT, DialogType.SUCCESS)
-     //      .setTitle("Title")
-     //      .setMessage("Message")
-     //      .setCancelable(false)
-     //      .setDarkMode(true)
-     //      .setGravity(Gravity.CENTER)
-     //      .setAnimation(DialogAnimation.SHRINK)
-     //      .setOnClickListener(object : OnDialogClickListener {
-     //          override fun onClick(dialog: AestheticDialog.Builder) {
-     //              dialog.dismiss()
-     //          }
-     //      })
-     //      .show()
-    }
 
     private fun openSettings(activity: Activity) {
         val permissionsIntent =
@@ -138,6 +127,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         val stackerService = ComponentName(context, NotificationListener::class.java).flattenToString()
         return enabledListeners.contains(stackerService)
     }
+
 
 
 }

@@ -40,7 +40,7 @@ class NotificationFragment : Fragment() {
 
     private val posts = ArrayList<NotiDataModel>()
     private val adapter = NotificationAdapter(posts) { view, notificationdatamodel ->
-        // Toast.makeText(context, " " + notificationdatamodel.packageName, Toast.LENGTH_SHORT).show()
+    //Toast.makeText(context, " " + notificationdatamodel.packageName, Toast.LENGTH_SHORT).show()
     }
 
     lateinit var recyclerView: RecyclerView

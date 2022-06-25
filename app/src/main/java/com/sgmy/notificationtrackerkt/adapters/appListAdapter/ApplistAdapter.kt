@@ -11,13 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sgmy.notificationtrackerkt.helpers.DBHelper
 import com.sgmy.notificationtrackerkt.R
 import com.sgmy.notificationtrackerkt.model.AppListDataModel
+import com.sgmy.notificationtrackerkt.model.NotiDataModel
 import com.sgmy.notificationtrackerkt.ui.AppListItemClickListener
 
 
 class ApplistAdapter(
     private val context: Context,
     private val mList: List<AppListDataModel>,
-    private val appListClickListener: AppListItemClickListener
+    private val appListClickListener: AppListItemClickListener,
+    private val onAppItemClick: (view: View, appListDataModel: AppListDataModel) -> Unit
 ) :
     RecyclerView.Adapter<ApplistAdapter.ViewHolder>() {
 
@@ -41,6 +43,7 @@ class ApplistAdapter(
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+
         val clickedAppsItem = mList[position]
 
         // sets the image to the imageview from our itemHolder class
@@ -55,6 +58,7 @@ class ApplistAdapter(
         holder.switchim.isChecked = db.isExist(clickedAppsItem.packageName.toString())
 
 
+
         holder.itemView.setOnClickListener{
             appListClickListener.onAppsItemClickListener(clickedAppsItem)
         }
@@ -65,6 +69,9 @@ class ApplistAdapter(
                 db.deleteCourse(clickedAppsItem.packageName!!)
             else
                 db.addAppsName(clickedAppsItem)
+        }
+        holder.itemView.setOnClickListener{
+           // onAppItemClick(it, it)
         }
 
 

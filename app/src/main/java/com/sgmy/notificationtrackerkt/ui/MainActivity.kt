@@ -1,15 +1,6 @@
 package com.sgmy.notificationtrackerkt.ui
 
-import android.Manifest
-
-import android.content.ComponentName
-import android.content.DialogInterface
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.Settings
-import android.text.TextUtils
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -18,12 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.MobileAds
 import com.sgmy.notificationtrackerkt.R
 import com.sgmy.notificationtrackerkt.databinding.ActivityMain2Binding
-import com.sgmy.notificationtrackerkt.helpers.NotificationListener
 import com.sgmy.notificationtrackerkt.ui.fragment.AppListFragment
 import com.sgmy.notificationtrackerkt.ui.fragment.NotificationFragment
-
 import com.sgmy.notificationtrackerkt.viewModel.MainActivityViewModel
-
 
 
 class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
@@ -56,9 +44,10 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
             )
         }
         binding.navView.selectedItemId = R.id.navigation_home
-       // startNotificationListener()
-        if(!viewModel.haveNotificationPermission()){
-        viewModel.showDialogAwesome(this)
+
+        // startNotificationListener()
+        if (!viewModel.haveNotificationPermission()) {
+            viewModel.showDialogAwesome(this)
         }
 
     }
@@ -66,10 +55,13 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
     private fun handleBottomNavigation(
         menuItemId: Int
     ): Boolean = when (menuItemId) {
+
         R.id.navigation_home -> {
+
             if (interstitialIsLoaded)
                 viewModel.showAd(activity = this)
             swapFragments(AppListFragment())
+
             true
         }
         R.id.navigation_dashboard -> {
@@ -82,19 +74,20 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
     }
 
     private fun swapFragments(fragment: Fragment) {
-
+        if (!viewModel.haveNotificationPermission()) {
+            viewModel.showDialogAwesome(this)
+        }else {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, fragment)
             .commit()
+        }
     }
-
-
 
 
     override fun onRestart() {
         super.onRestart()
-        if(!viewModel.haveNotificationPermission()){
+        if (!viewModel.haveNotificationPermission()) {
             viewModel.showDialogAwesome(this)
         }
     }
