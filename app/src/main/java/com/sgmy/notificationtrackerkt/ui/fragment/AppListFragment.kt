@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SnapHelper
-import com.example.awesomedialog.*
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -23,8 +22,7 @@ import com.sgmy.notificationtrackerkt.model.AppListDataModel
 import com.sgmy.notificationtrackerkt.ui.AppListItemClickListener
 import com.sgmy.notificationtrackerkt.viewModel.AppListViewModel
 import com.sgmy.notificationtrackerkt.ui.MainActivity
-import com.thecode.aestheticdialogs.*
-import com.thecode.aestheticdialogs.R
+
 import kotlin.system.exitProcess
 
 

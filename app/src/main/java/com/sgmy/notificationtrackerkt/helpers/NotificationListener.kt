@@ -25,7 +25,7 @@ class NotificationListener: NotificationListenerService() {
         val pack = sbn.packageName
         var ticker = ""
 
-        if(db.isExist(pack)){
+        if(db.isExist(pack)&&sbn.notification.tickerText == null){
             Log.i("Hey:pack Var",pack)
             if (sbn.notification.tickerText != null) {
                 ticker = sbn.notification.tickerText.toString()
@@ -41,9 +41,6 @@ class NotificationListener: NotificationListenerService() {
             //Convert btimap to ByteArrray
             val iconX =
                 this.packageManager.getApplicationIcon(pack)
-
-
-
 
             val stream = ByteArrayOutputStream()
             icon?.compress(Bitmap.CompressFormat.PNG, 100, stream)

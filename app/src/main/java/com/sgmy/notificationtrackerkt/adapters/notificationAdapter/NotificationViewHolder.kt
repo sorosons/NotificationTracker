@@ -31,11 +31,13 @@ class NotificationViewHolder(viewGroup: ViewGroup) : RecyclerView.ViewHolder(
             itemView.setOnClickListener {
                 onItemClick(it, notificationDataModel)
             }
+
             val iconic: Drawable? = runCatching {
                 // Get a default icon
-                ContextCompat.getDrawable(this, android.R.drawable.ic_dialog_info)
-            }.getOrElse {
+
                 this.packageManager.getApplicationIcon(notificationDataModel.packageName.toString())
+            }.getOrElse {
+                ContextCompat.getDrawable(this, android.R.drawable.ic_dialog_info)
             }
 
             Glide.with(this)

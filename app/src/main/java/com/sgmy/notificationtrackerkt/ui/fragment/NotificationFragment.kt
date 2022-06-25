@@ -86,9 +86,13 @@ class NotificationFragment : Fragment() {
     private fun getNotification() {
         viewModel.audioRecordsLiveData.observe(viewLifecycleOwner, Observer { fetchList ->
 
+
+
+
             for (i in fetchList)
                 posts.add(i)
 
+             posts.reverse()
             recyclerView.adapter = adapter
             adapter.notifyDataSetChanged()
 

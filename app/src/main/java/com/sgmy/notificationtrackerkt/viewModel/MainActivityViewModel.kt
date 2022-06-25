@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.awesomedialog.*
+
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -23,7 +23,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.sgmy.notificationtrackerkt.helpers.NotificationListener
 
-import com.thecode.aestheticdialogs.*
+
 import kotlin.system.exitProcess
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
@@ -96,32 +96,32 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun showDialogAwesome(activity: Activity) {
-        AwesomeDialog.build(activity)
-            .title("İzin gerekli")
-            .body("Uygulamanın çalışması için izin gereklasadaşdşa")
-            .icon(com.thecode.aestheticdialogs.R.drawable.ic_cancel)
-            .onPositive("İzin Ver") {
-                openSettings(activity)
-            }
-            .onNegative("Vazgeç") {
-                exitProcess(-1)
-            }
+   //     AwesomeDialog.build(activity)
+   //         .title("İzin gerekli")
+   //         .body("Uygulamanın çalışması için izin gereklasadaşdşa")
+   //         .icon(com.thecode.aestheticdialogs.R.drawable.ic_cancel)
+   //         .onPositive("İzin Ver") {
+   //             openSettings(activity)
+   //         }
+   //         .onNegative("Vazgeç") {
+   //             exitProcess(-1)
+   //         }
     }
 
     fun showDialogAesthetic(activity: Activity) {
-        AestheticDialog.Builder(activity, DialogStyle.FLAT, DialogType.SUCCESS)
-            .setTitle("Title")
-            .setMessage("Message")
-            .setCancelable(false)
-            .setDarkMode(true)
-            .setGravity(Gravity.CENTER)
-            .setAnimation(DialogAnimation.SHRINK)
-            .setOnClickListener(object : OnDialogClickListener {
-                override fun onClick(dialog: AestheticDialog.Builder) {
-                    dialog.dismiss()
-                }
-            })
-            .show()
+     //  AestheticDialog.Builder(activity, DialogStyle.FLAT, DialogType.SUCCESS)
+     //      .setTitle("Title")
+     //      .setMessage("Message")
+     //      .setCancelable(false)
+     //      .setDarkMode(true)
+     //      .setGravity(Gravity.CENTER)
+     //      .setAnimation(DialogAnimation.SHRINK)
+     //      .setOnClickListener(object : OnDialogClickListener {
+     //          override fun onClick(dialog: AestheticDialog.Builder) {
+     //              dialog.dismiss()
+     //          }
+     //      })
+     //      .show()
     }
 
     private fun openSettings(activity: Activity) {

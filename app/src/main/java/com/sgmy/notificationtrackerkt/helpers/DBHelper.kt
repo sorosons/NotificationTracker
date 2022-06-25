@@ -126,6 +126,8 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
         }
 
+
+      //  notList?.reverse()
         return  notList
     }
 
