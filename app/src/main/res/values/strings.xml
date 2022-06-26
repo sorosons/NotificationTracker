@@ -3,8 +3,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Notification Settings</string>
     <string name="title_activity_main2">MainActivity2</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Apps</string>
+    <string name="title_dashboard">Notifications</string>
     <string name="title_notifications">Notifications</string>
     <string name="admob_native_test_id">Notifications</string>
 </resources>

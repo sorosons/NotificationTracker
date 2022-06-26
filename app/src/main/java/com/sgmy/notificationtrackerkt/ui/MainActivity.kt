@@ -45,10 +45,11 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
         }
         binding.navView.selectedItemId = R.id.navigation_home
 
-        // startNotificationListener()
-        if (!viewModel.haveNotificationPermission()) {
-            viewModel.showDialogAwesome(this)
-        }
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, AppListFragment())
+            .commit()
+
 
     }
 
@@ -74,14 +75,16 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
     }
 
     private fun swapFragments(fragment: Fragment) {
-        if (!viewModel.haveNotificationPermission()) {
-            viewModel.showDialogAwesome(this)
-        }else {
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragment)
-            .commit()
+        if (viewModel.haveNotificationPermission()) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit()
+        } else {
+            viewModel.showDialogAwesome(this)
         }
+
+
     }
 
 
@@ -91,7 +94,6 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
             viewModel.showDialogAwesome(this)
         }
     }
-
 
 
 }

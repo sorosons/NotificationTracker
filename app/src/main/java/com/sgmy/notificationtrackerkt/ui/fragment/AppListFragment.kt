@@ -2,28 +2,24 @@ package com.sgmy.notificationtrackerkt.ui.fragment
 
 
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.SnapHelper
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.sgmy.notificationtrackerkt.adapters.appListAdapter.ApplistAdapter
 import com.sgmy.notificationtrackerkt.databinding.AppListFragmentBinding
+import com.sgmy.notificationtrackerkt.helpers.DBHelper
 import com.sgmy.notificationtrackerkt.model.AppListDataModel
 import com.sgmy.notificationtrackerkt.ui.AppListItemClickListener
-import com.sgmy.notificationtrackerkt.viewModel.AppListViewModel
 import com.sgmy.notificationtrackerkt.ui.MainActivity
-
-import kotlin.system.exitProcess
+import com.sgmy.notificationtrackerkt.viewModel.AppListViewModel
+import com.sgmy.notificationtrackerkt.viewModel.MainActivityViewModel
 
 
 class AppListFragment : Fragment(), AppListItemClickListener {
@@ -40,12 +36,13 @@ class AppListFragment : Fragment(), AppListItemClickListener {
 
     private lateinit var viewModel: AppListViewModel
 
+    private lateinit var mainActivityViewModel: MainActivityViewModel
+
     private lateinit var adapterim: ApplistAdapter
 
+    lateinit var db: DBHelper
 
-    lateinit var mAdView: AdView
-
-
+    private lateinit var mAdView: AdView
 
 
     override fun onCreateView(
@@ -56,10 +53,13 @@ class AppListFragment : Fragment(), AppListItemClickListener {
         val root: View = binding.root
 
 
-
+        db = DBHelper(requireContext(), null)
 
         viewModel = ViewModelProvider(this).get(AppListViewModel::class.java)
+        mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+
         viewModel.getApplist(context)
+
 
 
         viewModel.audioRecordsLiveData.observe(viewLifecycleOwner, Observer {
@@ -69,15 +69,17 @@ class AppListFragment : Fragment(), AppListItemClickListener {
             recyclerView?.adapter = adapterim
         })
 
-            MobileAds.initialize(requireContext()) {}
+        MobileAds.initialize(requireContext()) {}
 
-            //set Banner Ads
-            setBannerAds()
+        //set Banner Ads
+        setBannerAds()
 
 
 
-            binding.switchall.setOnCheckedChangeListener { _, isChecked ->
+        binding.switchall.setOnCheckedChangeListener { _, isChecked ->
 
+
+            if (mainActivityViewModel.haveNotificationPermission()) {
                 if (isChecked) {
                     viewModel.selectAllApps()
                 } else {
@@ -86,19 +88,20 @@ class AppListFragment : Fragment(), AppListItemClickListener {
 
                 adapterim.allSwitch = isChecked
                 adapterim.notifyDataSetChanged()
+            } else {
+                mainActivityViewModel.showDialogAwesome(requireActivity())
+                binding.switchall.isChecked = false
 
             }
+
+
+        }
 
 
 
         return root
     }
 
-    override fun onAppsItemClickListener(appListDataModel: AppListDataModel) {
-        /**
-         * daha sonra dolduralacak
-         */
-    }
 
     private fun setBannerAds() {
         mAdView = binding.adView
@@ -107,7 +110,25 @@ class AppListFragment : Fragment(), AppListItemClickListener {
     }
 
 
+    override fun onAppsItemClickListener(
+        view: ApplistAdapter.ViewHolder,
+        appListDataModel: AppListDataModel
+    ) {
 
+
+        view.switchim.setOnClickListener {
+            if (mainActivityViewModel.haveNotificationPermission()) {
+                if (!view.switchim.isChecked)
+                    db.deleteCourse(appListDataModel.packageName!!)
+                else
+                    db.addAppsName(appListDataModel)
+            } else {
+                mainActivityViewModel.showDialogAwesome(requireActivity())
+                view.switchim.isChecked = false
+            }
+
+        }
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package com.sgmy.notificationtrackerkt.adapters.appListAdapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.awesomedialog.*
 import com.sgmy.notificationtrackerkt.helpers.DBHelper
 import com.sgmy.notificationtrackerkt.R
 import com.sgmy.notificationtrackerkt.model.AppListDataModel
@@ -18,8 +20,9 @@ import com.sgmy.notificationtrackerkt.ui.AppListItemClickListener
 class ApplistAdapter(
     private val context: Context,
     private val mList: List<AppListDataModel>,
-    private val appListClickListener: AppListItemClickListener,
-    private val onAppItemClick: (view: View, appListDataModel: AppListDataModel) -> Unit
+    private val appListClickListener: AppListItemClickListener
+   // private val onAppItemClick: (view: View, appListDataModel: AppListDataModel) -> Boolean?,
+   // private val showDialog:() -> Unit
 ) :
     RecyclerView.Adapter<ApplistAdapter.ViewHolder>() {
 
@@ -57,21 +60,20 @@ class ApplistAdapter(
 
         holder.switchim.isChecked = db.isExist(clickedAppsItem.packageName.toString())
 
-
-
         holder.itemView.setOnClickListener{
-            appListClickListener.onAppsItemClickListener(clickedAppsItem)
+            appListClickListener.onAppsItemClickListener(holder,clickedAppsItem)
         }
 
         holder.switchim.setOnClickListener() {
 
-            if (!holder.switchim.isChecked)
-                db.deleteCourse(clickedAppsItem.packageName!!)
-            else
-                db.addAppsName(clickedAppsItem)
-        }
-        holder.itemView.setOnClickListener{
-           // onAppItemClick(it, it)
+
+
+             if (!holder.switchim.isChecked)
+                 db.deleteCourse(clickedAppsItem.packageName!!)
+             else
+                 db.addAppsName(clickedAppsItem)
+
+
         }
 
 
