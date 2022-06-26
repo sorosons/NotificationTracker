@@ -11,6 +11,9 @@ import android.service.notification.StatusBarNotification
 import android.util.Log
 import com.sgmy.notificationtrackerkt.model.NotiDataModel
 import java.io.ByteArrayOutputStream
+import java.sql.Date
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class NotificationListener: NotificationListenerService() {
@@ -53,7 +56,10 @@ class NotificationListener: NotificationListenerService() {
             }
             Log.i("Text", text)
 
-            val data = NotiDataModel(pack,title,text,iconX)
+            val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z")
+            val currentDateAndTime: String = simpleDateFormat.format(Date())
+
+            val data = NotiDataModel(pack,title,text, currentDateAndTime)
             db.addNotificaiton(data)
         }
         else{

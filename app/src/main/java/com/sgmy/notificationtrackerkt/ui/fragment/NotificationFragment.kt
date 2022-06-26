@@ -40,7 +40,8 @@ class NotificationFragment : Fragment() {
 
     private val posts = ArrayList<NotiDataModel>()
     private val adapter = NotificationAdapter(posts) { view, notificationdatamodel ->
-        // Toast.makeText(context, " " + notificationdatamodel.packageName, Toast.LENGTH_SHORT).show()
+          Toast.makeText(context, " " + notificationdatamodel.packageName, Toast.LENGTH_SHORT).show()
+
     }
 
     lateinit var recyclerView: RecyclerView
@@ -93,6 +94,17 @@ class NotificationFragment : Fragment() {
                 posts.add(i)
 
              posts.reverse()
+
+            val result = posts
+                .groupBy { it.packageName }
+
+
+
+
+            print(result.values)
+            print(result.keys)
+
+
             recyclerView.adapter = adapter
             adapter.notifyDataSetChanged()
 
