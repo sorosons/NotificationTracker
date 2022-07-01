@@ -92,12 +92,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
     }
 
-    private val onNotice: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent) {
 
-
-        }
-    }
     override fun onRestart() {
         super.onRestart()
         if (!viewModel.haveNotificationPermission()) {

@@ -21,9 +21,6 @@ class NotificationViewModel : ViewModel() {
 
     }
 
-  fun getNotificationIcon(){
 
-
-    }
 
 }

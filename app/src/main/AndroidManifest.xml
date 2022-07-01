@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
 
+
         <service
             android:name=".helpers.NotificationListener"
             android:exported="true"
@@ -37,7 +38,7 @@
         </service>
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-4135908221372143~1736635149"/>
+            android:value="ca-app-pub-1754050942669093~6272175326"/>
 
 
     </application>

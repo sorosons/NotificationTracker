@@ -44,7 +44,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun loadInterstitialAd() {
         val adRequest = AdRequest.Builder().build()
         InterstitialAd.load(context,
-            "ca-app-pub-3940256099942544/1033173712",
+            "ca-app-pub-1754050942669093/1466571200",
             adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -100,13 +100,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun showDialogAwesome(activity: Activity) {
 
         AwesomeDialog.build(activity)
-            .title("İzin Gerekli")
-            .body("Lütfen izinlsflsşlfmsşlfd")
-            .onPositive("İzinver") {
+            .title("Permission Required")
+            .body("This permission is required for the app to work correctly")
+            .onPositive("Allow") {
                 Log.d("TAG", "positive ")
                 openSettings(activity)
             }
-            .onNegative("Vazgeç") {
+            .onNegative("No") {
                 Log.d("TAG", "negative ")
             }
 

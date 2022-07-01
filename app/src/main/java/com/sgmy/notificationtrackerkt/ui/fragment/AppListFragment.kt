@@ -1,6 +1,10 @@
 package com.sgmy.notificationtrackerkt.ui.fragment
 
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +12,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -54,6 +59,7 @@ class AppListFragment : Fragment(), AppListItemClickListener {
 
 
         db = DBHelper(requireContext(), null)
+
 
         viewModel = ViewModelProvider(this).get(AppListViewModel::class.java)
         mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)

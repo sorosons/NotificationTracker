@@ -20,7 +20,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
                 PACK_COl + " TEXT," +
                 TITLE_COL + " TEXT," +
                 TEXT_COl + " TEXT," +
-                BIGICON_COL + " BLOB" +
+                DATE_CREATED_COL + " TEXT" +
                 ")")
 
         val appTable = ("CREATE TABLE " + APP_TABLE + " ("
@@ -55,7 +55,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         values.put(PACK_COl,notiData.packageName)
         values.put(TITLE_COL, notiData.tittle)
         values.put(TEXT_COl, notiData.text)
-       // values.put(BIGICON_COL, notiData.bigIcon)
+        values.put(DATE_CREATED_COL, notiData.dateCreated)
 
 
         // here we are creating a
@@ -121,13 +121,13 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
             var packname=cursor.getString(cursor.getColumnIndex(PACK_COl))
             var title=cursor.getString(cursor.getColumnIndex(TITLE_COL))
             var text=cursor.getString(cursor.getColumnIndex(TEXT_COl))
-            var icon=cursor.getBlob(cursor.getColumnIndex(BIGICON_COL))
-            notList?.add(NotiDataModel(packname,title,text,null))
+            var dataCreated=cursor.getString(cursor.getColumnIndex(DATE_CREATED_COL))
+            notList?.add(NotiDataModel(packname,title,text,dataCreated))
 
         }
 
 
-      //  notList?.reverse()
+        //  notList?.reverse()
         return  notList
     }
 
@@ -151,11 +151,11 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val db = this.readableDatabase
         val selectQuery = "SELECT  * FROM $APP_TABLE WHERE $APPS_PACKAGE_NAME_COL = ?"
         db.rawQuery(selectQuery, arrayOf(packagename)).use {
-          if (it.moveToFirst()) {
+            if (it.moveToFirst()) {
 
-              return true
-          }
-      }
+                return true
+            }
+        }
 
         return false
 
@@ -185,12 +185,12 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         private val DATABASE_VERSION = 1
 
         // below is the variable for table name
-        val NOTI_TABLE_NAME = "noti_table"
+        val NOTI_TABLE_NAME = "noti_tablex"
         val ID_COL = "id"
         val PACK_COl = "packgagename"
         val TITLE_COL = "tittle"
         val TEXT_COl = "text"
-        val BIGICON_COL = "bigiocn"
+        val DATE_CREATED_COL = "datecreated"
 
 
 
@@ -199,4 +199,3 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val APPS_NAME_COL = "appname"
     }
 }
-

@@ -1,6 +1,7 @@
 package com.sgmy.notificationtrackerkt.helpers
 
 import android.app.Notification
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Build
@@ -9,13 +10,22 @@ import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.sgmy.notificationtrackerkt.model.NotiDataModel
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 
-class NotificationListener: NotificationListenerService() {
+class NotificationListener : NotificationListenerService() {
+    lateinit var context: Context
     override fun onBind(intent: Intent): IBinder? {
         return super.onBind(intent)
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        context = applicationContext
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
@@ -25,8 +35,8 @@ class NotificationListener: NotificationListenerService() {
         val pack = sbn.packageName
         var ticker = ""
 
-        if(db.isExist(pack)&&sbn.notification.tickerText == null){
-            Log.i("Hey:pack Var",pack)
+        if (db.isExist(pack) && sbn.notification.tickerText == null) {
+            Log.i("Hey:pack Var", pack)
             if (sbn.notification.tickerText != null) {
                 ticker = sbn.notification.tickerText.toString()
             }
@@ -49,15 +59,18 @@ class NotificationListener: NotificationListenerService() {
             Log.i("Package", pack)
             Log.i("Ticker", ticker)
             if (title != null) {
-                Log.i("Title",title)
+                Log.i("Title", title)
             }
+            val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z")
+            val currentDateAndTime: String = simpleDateFormat.format(Date())
             Log.i("Text", text)
 
-            val data = NotiDataModel(pack,title,text,iconX)
+
+
+            val data = NotiDataModel(pack, title, text,currentDateAndTime)
             db.addNotificaiton(data)
-        }
-        else{
-            Log.i("packgage delete from db",pack)
+        } else {
+            Log.i("packgage delete from db", pack)
         }
 
 
