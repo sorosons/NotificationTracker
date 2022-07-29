@@ -44,6 +44,7 @@ class NotificationViewHolder(viewGroup: ViewGroup) : RecyclerView.ViewHolder(
                 .load(iconic)
                 .into(image)
 
+
         }
     }
 
